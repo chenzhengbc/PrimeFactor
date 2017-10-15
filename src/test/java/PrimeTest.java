@@ -1,17 +1,17 @@
-
 import org.junit.Test;
-
-import java.util.LinkedList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 import static org.junit.Assert.*;
 
 public class PrimeTest {
     private final Logger log = LoggerFactory.getLogger(PrimeTest.class);
+
     @Test
-    public void testIsPrime(){
+    public void testIsPrime() {
         assertTrue(Prime.isPrime(2));
         assertTrue(Prime.isPrime(3));
         assertTrue(Prime.isPrime(5));
@@ -19,7 +19,7 @@ public class PrimeTest {
     }
 
     @Test
-    public void testIsNotPrime(){
+    public void testIsNotPrime() {
         assertFalse(Prime.isPrime(4));
         assertFalse(Prime.isPrime(6));
         assertFalse(Prime.isPrime(8));
@@ -36,16 +36,53 @@ public class PrimeTest {
         assertTrue(list.contains(new Integer(3)));
     }
 
+    @Test
+    public void testFindPossiblePrimeNumber_10() {
+        LinkedList<Integer> list = Prime.findPossiblePrimeNumbers(10);
+        assertTrue(list.contains(new Integer(2)));
+        assertTrue(list.contains(new Integer(3)));
+        assertTrue(list.contains(new Integer(5)));
+        assertTrue(list.contains(new Integer(7)));
+    }
 
     @Test
-    public void test4IsPrimeFactor(){
-        assertTrue(Prime.isPrimeFactor(4));
+    public void testFindPossiblePrimeNumber_300() {
+        LinkedList<Integer> list = Prime.findPossiblePrimeNumbers(300);
+        assertTrue(list.contains(new Integer(2)));
+        assertTrue(list.contains(new Integer(3)));
+        assertTrue(list.contains(new Integer(5)));
     }
 
 
     @Test
-    public void test300IsPrimeFactor(){
-        assertTrue(Prime.isPrimeFactor(300));
+    public void test4GetPrimeFactor() {
+        Queue<Integer> list = Prime.getPrimeFactor(4);
+        assertNotNull(list);
+        log.debug("PrimeFactor for 4 is " + list.toString());
+    }
+
+    @Test
+    public void test6GetPrimeFactor() {
+        Queue<Integer> list = Prime.getPrimeFactor(6);
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertTrue(list.contains(2));
+        assertTrue(list.contains(3));
+        log.debug("PrimeFactor for 6 is " + list.toString());
+    }
+
+
+    @Test
+    public void test300IsPrimeFactor() {
+        Integer testNumber = 300;
+        Queue<Integer> list = Prime.getPrimeFactor(testNumber);
+        assertNotNull(list);
+        int result = 1;
+        for (Integer i : list) {
+            result = result * i;
+        }
+        assertEquals(testNumber.intValue(), result);
+        log.debug("PrimeFactor for 6 is " + list.toString());
     }
 
 }

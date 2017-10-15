@@ -1,7 +1,15 @@
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 
 public class Prime {
+    private final Logger log = LoggerFactory.getLogger(Prime.class);
 
     public static boolean isPrime(int number) {
         if (number == 1) {
@@ -22,17 +30,40 @@ public class Prime {
         return !canBeDividedByOtherNumber;
     }
 
-    // prime factor means the number can be made up of 300
-    public static boolean isPrimeFactor (int number) {
-        // find all the prime numbers below the number provided
-        // try to divide the number by the prime number below
-        // if the number can be divided, follow the same process
-        return false;
+
+    public static Queue<Integer> getPrimeFactor(int number) {
+        List<Integer> primesLessThanGivenNumber = findPossiblePrimeNumbers(number);
+        return getPrimeFactor(number, primesLessThanGivenNumber);
+    }
+    private static Queue<Integer> getPrimeFactor (int number, List<Integer> primeList) {
+        Queue<Integer> primeFactors = new PriorityQueue<Integer>();
+
+        // looping through all the prime factors, try to divide as much as possible for a given prime
+        for (Integer prime : primeList) {
+            number = isPrimeFactorOf(number, prime, primeFactors);
+        }
+
+        if (number == 1) {
+            return primeFactors;
+        } else {
+            return null;
+        }
     }
 
-    public static void findPrimeFactor(int number) {
-
+    private static Integer isPrimeFactorOf(int number, int prime, Queue<Integer> primeFactorQueue) {
+        if (primeFactorQueue == null) {
+            throw new RuntimeException("Prime Factor Queue is empty");
+        }
+        if (number == 1) {
+            return 1;
+        } else if (number % prime == 0) {
+            primeFactorQueue.add(prime);
+            return isPrimeFactorOf(number / prime, prime, primeFactorQueue);
+        } else {
+            return number;
+        }
     }
+
 
     public static LinkedList<Integer> findPossiblePrimeNumbers(int number) {
         LinkedList<Integer> linkedList = new LinkedList<Integer>();
