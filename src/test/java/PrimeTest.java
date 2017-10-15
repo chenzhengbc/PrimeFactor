@@ -3,9 +3,13 @@ import org.junit.Test;
 
 import java.util.LinkedList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static org.junit.Assert.*;
 
 public class PrimeTest {
+    private final Logger log = LoggerFactory.getLogger(PrimeTest.class);
     @Test
     public void testIsPrime(){
         assertTrue(Prime.isPrime(2));
@@ -26,8 +30,10 @@ public class PrimeTest {
     @Test
     public void testFindPossiblePrimeNumber_4() {
         LinkedList<Integer> list = Prime.findPossiblePrimeNumbers(4);
-        assertEquals(list.size(), 1);
+        log.info("Prime Numbers are:" + list.toString());
+        assertEquals(2, list.size());
         assertTrue(list.contains(new Integer(2)));
+        assertTrue(list.contains(new Integer(3)));
     }
 
 

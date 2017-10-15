@@ -4,10 +4,16 @@ import java.util.LinkedList;
 public class Prime {
 
     public static boolean isPrime(int number) {
-        if (number == 1) return false;
-        
+        if (number == 1) {
+            return false;
+        }
+
         boolean canBeDividedByOtherNumber = false;
         for (int i = number - 1; i > 1; i--) {
+            if (i == 1) {
+                break;
+            }
+
             if (number % i == 0 ) {
                 canBeDividedByOtherNumber = true;
                 return !canBeDividedByOtherNumber;
@@ -31,7 +37,6 @@ public class Prime {
     public static LinkedList<Integer> findPossiblePrimeNumbers(int number) {
         LinkedList<Integer> linkedList = new LinkedList<Integer>();
         for (int i = number - 1; i > 1; i--) {
-
             if (isPrime(i)) {
                 linkedList.add(i);
             }
