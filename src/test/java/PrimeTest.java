@@ -28,6 +28,14 @@ public class PrimeTest {
     }
 
     @Test
+    public void testFindPossiblePrimeNumber_2() {
+        LinkedList<Integer> list = Prime.findPossiblePrimeNumbers(2);
+        log.info("Prime Numbers are:" + list.toString());
+        assertEquals(1, list.size());
+        assertTrue(list.contains(new Integer(2)));
+    }
+
+    @Test
     public void testFindPossiblePrimeNumber_4() {
         LinkedList<Integer> list = Prime.findPossiblePrimeNumbers(4);
         log.info("Prime Numbers are:" + list.toString());
@@ -73,8 +81,12 @@ public class PrimeTest {
 
 
     @Test
-    public void test300IsPrimeFactor() {
+    public void test300GetPrimeFactor() {
         Integer testNumber = 300;
+        testFindPrimeFactors(testNumber);
+    }
+
+    private void testFindPrimeFactors(Integer testNumber) {
         Queue<Integer> list = Prime.getPrimeFactor(testNumber);
         assertNotNull(list);
         int result = 1;
@@ -83,6 +95,12 @@ public class PrimeTest {
         }
         assertEquals(testNumber.intValue(), result);
         log.debug("PrimeFactor for 6 is " + list.toString());
+    }
+
+    @Test
+    public void test2GetPrimeFactor() {
+        Integer testNumber = 2;
+        testFindPrimeFactors(testNumber);
     }
 
 }

@@ -67,7 +67,7 @@ public class Prime {
 
     public static LinkedList<Integer> findPossiblePrimeNumbers(int number) {
         LinkedList<Integer> linkedList = new LinkedList<Integer>();
-        for (int i = number - 1; i > 1; i--) {
+        for (int i = number; i > 1; i--) {
             if (isPrime(i)) {
                 linkedList.add(i);
             }
